@@ -25,6 +25,15 @@ const StyledClassicMemberList = styled.div`
   max-height: 240px;
 `;
 
+const StyledGroupMembersCount = styled.span`
+  font-weight: bold;
+  margin-inline-start: var(--margins-md);
+  margin-inline-end: var(--margins-md);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 /**
  * Admins are always put first in the list of group members.
  * Also, admins have a little crown on their avatar.
@@ -226,6 +235,7 @@ export const UpdateGroupMembersDialog = (props: Props) => {
     removeFrom(member);
   };
 
+  let currentMembers = convoProps.members || [];
   const showNoMembersMessage = existingMembers.length === 0;
   const okText = window.i18n('ok');
   const cancelText = window.i18n('cancel');
@@ -233,6 +243,7 @@ export const UpdateGroupMembersDialog = (props: Props) => {
 
   return (
     <SessionWrapperModal title={titleText} onClose={closeDialog}>
+      <StyledGroupMembersCount>{currentMembers.length} {window.i18n('groupMembers')}</StyledGroupMembersCount>
       <StyledClassicMemberList className="contact-selection-list">
         <ClassicMemberList
           convoId={conversationId}
